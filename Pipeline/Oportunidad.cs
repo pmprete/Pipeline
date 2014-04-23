@@ -24,10 +24,11 @@ namespace Pipeline
         public int ColumnaImporteUSD;
         public int ColumnaMonto;
         public int ColumnaPonderado;
+        public int ColumnaFechaDeIngreso;
 
-        protected double _probabilidad;
-        protected double _monto;
-        protected double _importeUSD;
+        public double Probabilidad { get; set; }
+        public double Monto { get; set; }
+        public double ImporteUSD { get; set; }
 
         public int Hoja { get; set; }
         public string Cuenta { get; set; }
@@ -36,37 +37,8 @@ namespace Pipeline
         public string Responsable { get; set; }
         public string Fase { get; set; }
         public double Ponderado { get; set; }
+        public string FechaDeIngreso { get; set; }
 
-        public virtual double ImporteUSD()
-        {
-            return _importeUSD;
-        }
-
-        public void ImporteUSD(double value)
-        {
-            _importeUSD = value;
-        }
-
-        public virtual double Probabilidad()
-        {
-            return _probabilidad;
-        }
-
-        public void Probabilidad(double value)
-        {
-             _probabilidad = value; 
-        }
-
-
-        public virtual double Monto()
-        {
-            return _monto;
-        }
-
-        public void Monto(double value)
-        {
-            _monto = value;
-        }
 
         public abstract void CargarDatos(ExcelWorksheet hoja, int i);
 
@@ -85,6 +57,10 @@ namespace Pipeline
             }
             return null;
         }
-
+        public bool Iguales(Oportunidad otraOportunidad)
+        {
+            return otraOportunidad.Codigo == Codigo && otraOportunidad.Hoja == Hoja && otraOportunidad.Fase == Fase && ImporteUSD == otraOportunidad.ImporteUSD 
+                && otraOportunidad.Probabilidad == Probabilidad && otraOportunidad.Monto == Monto && FechaDeIngreso == otraOportunidad.FechaDeIngreso;
+        }
     }
 }

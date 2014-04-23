@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ListaHojasExcel.cs" />
     <Compile Include="PipelineExcel.cs" />
     <Compile Include="Oportunidad.cs" />
     <Compile Include="Main.cs">

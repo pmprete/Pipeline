@@ -68,14 +68,14 @@ namespace Pipeline
             Ponderado = oportunidad.Ponderado;
             PonderadoAnterior = oportunidadAnterior.Ponderado;
 
-            ImporteUSD(oportunidad.ImporteUSD());
-            ImporteUSDAnterior = oportunidadAnterior.ImporteUSD();
+            ImporteUSD=oportunidad.ImporteUSD;
+            ImporteUSDAnterior = oportunidadAnterior.ImporteUSD;
 
-            Monto(oportunidad.Monto());
-            MontoAnterior = oportunidadAnterior.Monto();
+            Monto=oportunidad.Monto;
+            MontoAnterior = oportunidadAnterior.Monto;
 
-            Probabilidad(oportunidad.Probabilidad());
-            ProbabilidadAnterior = oportunidadAnterior.Probabilidad();
+            Probabilidad=oportunidad.Probabilidad;
+            ProbabilidadAnterior = oportunidadAnterior.Probabilidad;
             
             HojaActual = oportunidad.Hoja;
             HojaAnterior = oportunidadAnterior.Hoja;
@@ -95,13 +95,13 @@ namespace Pipeline
             hojaVariaciones.Cells[filaVariacion, ColumnaResponsable].Value = Responsable;
             hojaVariaciones.Cells[filaVariacion, ColumnaFase].Value = Fase;
             hojaVariaciones.Cells[filaVariacion, ColumnaFaseAnterior].Value = FaseAnterior;
-            hojaVariaciones.Cells[filaVariacion, ColumnaImporteUSD].Value = ImporteUSD();
+            hojaVariaciones.Cells[filaVariacion, ColumnaImporteUSD].Value = ImporteUSD;
             hojaVariaciones.Cells[filaVariacion, ColumnaImporteUSDAnterior].Value = ImporteUSDAnterior;
-            hojaVariaciones.Cells[filaVariacion, ColumnaMonto].Value = Monto();
+            hojaVariaciones.Cells[filaVariacion, ColumnaMonto].Value = Monto;
             hojaVariaciones.Cells[filaVariacion, ColumnaMontoAnterior].Value = MontoAnterior;
             hojaVariaciones.Cells[filaVariacion, ColumnaPonderado].Value = Ponderado;
             hojaVariaciones.Cells[filaVariacion, ColumnaPonderadoAnterior].Value = PonderadoAnterior;
-            hojaVariaciones.Cells[filaVariacion, ColumnaProbabilidad].Value = Probabilidad();
+            hojaVariaciones.Cells[filaVariacion, ColumnaProbabilidad].Value = Probabilidad;
             hojaVariaciones.Cells[filaVariacion, ColumnaProbabilidadAnterior].Value = ProbabilidadAnterior;
             
             hojaVariaciones.Cells[filaVariacion, ColumnaValidacionTc].Value = 0;
@@ -138,15 +138,5 @@ namespace Pipeline
             return acumulado;
         }
 
-        public bool SigueIgual()
-        {
-            if( HojaActual == HojaAnterior && Ponderado == PonderadoAnterior && ImporteUSD() == ImporteUSDAnterior 
-                && Monto() == MontoAnterior && Probabilidad() == ProbabilidadAnterior)
-            {
-                return true;
-            }
-
-            return false;
-        }
     }
 }

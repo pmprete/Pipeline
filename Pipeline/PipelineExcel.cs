@@ -12,26 +12,16 @@ namespace Pipeline
         public static void CrearVariacion(string pathExcelAnterior, string pathExcelActual, string pathExcelNuevo)
         {
             //Anterior
-            var archivoAnterior = new FileInfo(pathExcelAnterior);
-            var excelAnterior = new ExcelPackage(archivoAnterior);
+            var excelAnterior = new ListaHojasExcel(pathExcelAnterior);
             
             //Actual
-            var archivoActual = new FileInfo(pathExcelActual);
-            var excelActual = new ExcelPackage(archivoActual);
+            var excelActual = new ListaHojasExcel(pathExcelActual);
 
             //Nuevo
-            var archivoNuevo = new FileInfo(pathExcelNuevo);
-            var excelNuevo = new ExcelPackage(archivoNuevo);
-
-            var listaHojas = new List<int>
-                                 {
-                                     Oportunidad.HojaYTD,
-                                     Oportunidad.HojaYTG100,
-                                     Oportunidad.HojaYTGPonderado,
-                                     Oportunidad.HojaPerdidas
-                                 };
+            var archivoNuevo = new ExcelPackage(new FileInfo(pathExcelNuevo));
+            
      
-            var hojaVariaciones = CreateSheet(excelNuevo, "Variacion");
+            var hojaVariaciones = CreateSheet(archivoNuevo, "Variacion");
             var filaVariacion = 1;
             var variacionHeader = new Variacion();
             hojaVariaciones.Cells[filaVariacion, variacionHeader.ColumnaCuenta].Value = "Cuenta";
@@ -56,49 +46,15 @@ namespace Pipeline
             hojaVariaciones.Cells[filaVariacion, variacionHeader.ColumnaValidacionDiferencia].Value = "Diferencia";
             filaVariacion++;
 
-            foreach (var indice in listaHojas)
+            var variaciones = excelActual.ObtenerVariaciones(excelAnterior);
+            foreach (var variacion in variaciones)
             {
-                var hojaActual = excelActual.Workbook.Worksheets[indice];
-                var filaActual = 5;
-                while (!String.IsNullOrEmpty(hojaActual.GetValue<string>(filaActual, 2)))
-                {
-
-                    var oportunidad = Oportunidad.CrearOportunidad(indice);
-                    oportunidad.CargarDatos(hojaActual, filaActual);
-                   
-                    foreach (var indiceAnterior in listaHojas)
-                    {
-                        var hojaAnterior = excelAnterior.Workbook.Worksheets[indiceAnterior];
-                        var filaAnterior = 5;
-                        while (!String.IsNullOrEmpty(hojaAnterior.GetValue<string>(filaAnterior, 2)))
-                        {
-                            var oportunidadAnterior = Oportunidad.CrearOportunidad(indiceAnterior);
-                            oportunidadAnterior.CargarDatos(hojaAnterior, filaAnterior);
-                            if (oportunidad.Codigo == oportunidadAnterior.Codigo)
-                            {
-                                var variacion = new Variacion(oportunidad, oportunidadAnterior);
-                                if (!variacion.SigueIgual())
-                                {
-                                    variacion.PegarDatos(hojaVariaciones, filaVariacion);
-                                    filaVariacion++;
-                                }
-                            }
-
-                            filaAnterior++;
-                        }
-
-                    }
-
-                    filaActual++;
-                }
+                variacion.PegarDatos(hojaVariaciones, filaVariacion);
+                filaVariacion++;
             }
-            
 
-
-            excelNuevo.Save();
-            excelAnterior.Dispose();
-            excelActual.Dispose();
-            excelNuevo.Dispose();
+            archivoNuevo.Save();
+            archivoNuevo.Dispose();
 
         }
 

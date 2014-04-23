@@ -17,25 +17,11 @@ namespace Pipeline
             ColumnaResponsable = 5;
             ColumnaFase = 6;
             ColumnaPonderado = 7;
+            ColumnaFechaDeIngreso = 8;
 
             Hoja = HojaPerdidas;
-            Ponderado = 0;
         }
 
-        public override double Probabilidad()
-        {
-            return 0;
-        }
-
-        public override double Monto()
-        {
-            return 0;
-        }
-
-        public override double ImporteUSD()
-        {
-            return 0;
-        }
 
         public override void CargarDatos(ExcelWorksheet hoja, int i)
         {
@@ -45,6 +31,10 @@ namespace Pipeline
             Responsable = hoja.GetValue<string>(i, ColumnaResponsable);
             Fase = hoja.GetValue<string>(i, ColumnaFase);
             Ponderado = hoja.GetValue<double>(i, ColumnaPonderado);
+            FechaDeIngreso = hoja.GetValue<string>(i, ColumnaFechaDeIngreso);
+            ImporteUSD = 0;
+            Monto = 0;
+            Probabilidad = 0;
         }
 
       

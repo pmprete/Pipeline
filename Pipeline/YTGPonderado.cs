@@ -20,6 +20,7 @@ namespace Pipeline
             ColumnaImporteUSD = 8;
             ColumnaMonto = 9;
             ColumnaPonderado = 10;
+            ColumnaFechaDeIngreso = 11;
 
             Hoja = HojaYTGPonderado;
         }
@@ -31,10 +32,11 @@ namespace Pipeline
             Codigo = hoja.GetValue<int>(i, ColumnaCodigo);
             Responsable = hoja.GetValue<string>(i, ColumnaResponsable);
             Fase = hoja.GetValue<string>(i, ColumnaFase);
-            Probabilidad(hoja.GetValue<double>(i, ColumnaProbabilidad));
-            ImporteUSD(hoja.GetValue<double>(i, ColumnaImporteUSD));
-            Monto(hoja.GetValue<double>(i, ColumnaMonto));
+            Probabilidad = hoja.GetValue<double>(i, ColumnaProbabilidad);
+            ImporteUSD =hoja.GetValue<double>(i, ColumnaImporteUSD);
+            Monto = hoja.GetValue<double>(i, ColumnaMonto);
             Ponderado = hoja.GetValue<double>(i, ColumnaPonderado);
+            FechaDeIngreso = hoja.GetValue<string>(i, ColumnaFechaDeIngreso);
         }
     }
 }

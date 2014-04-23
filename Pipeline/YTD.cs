@@ -18,29 +18,25 @@ namespace Pipeline
             ColumnaFase = 6;
             ColumnaImporteUSD = 7;
             ColumnaPonderado = 8;
+            ColumnaFechaDeIngreso = 9;
+
             Hoja = HojaYTD;
         }
-
-        public override double Probabilidad()
-        {
-            return 1;
-        }
-
-        public override double Monto()
-        {
-            return Ponderado;
-        }
-
+        
 
         public override void CargarDatos(ExcelWorksheet hoja, int i)
         {
+            
             Cuenta = hoja.GetValue<string>(i, ColumnaCuenta);
             Nombre = hoja.GetValue<string>(i, ColumnaOportunidad);
             Codigo = hoja.GetValue<int>(i, ColumnaCodigo);
             Responsable = hoja.GetValue<string>(i, ColumnaResponsable);
             Fase = hoja.GetValue<string>(i, ColumnaFase);
-            ImporteUSD(hoja.GetValue<double>(i, ColumnaImporteUSD));
+            ImporteUSD =hoja.GetValue<double>(i, ColumnaImporteUSD);
             Ponderado = hoja.GetValue<double>(i, ColumnaPonderado);
+            FechaDeIngreso = hoja.GetValue<string>(i, ColumnaFechaDeIngreso);
+            Monto = Ponderado;
+            Probabilidad = 1;
         }
     }
 }
