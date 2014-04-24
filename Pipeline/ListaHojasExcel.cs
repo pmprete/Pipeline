@@ -38,6 +38,7 @@ namespace Pipeline
 
                     var oportunidad = Oportunidad.CrearOportunidad(indice);
                     oportunidad.CargarDatos(hojaActual, filaActual);
+                    hoja.Value.Add(oportunidad);
                     filaActual++;
                 }
             }
@@ -55,7 +56,7 @@ namespace Pipeline
             {
                 foreach (var hojaAnterior in excelAnterior.Hojas)
                 {
-                    foreach (var oportunidad in hoja.Value)
+                    foreach (var oportunidad in hoja.Value.ToList())
                     {
                         var oportunidadAnterior = hojaAnterior.Value.FirstOrDefault(x=> x.Codigo == oportunidad.Codigo && x.FechaDeIngreso == oportunidad.FechaDeIngreso);
 
@@ -64,10 +65,12 @@ namespace Pipeline
                             var variacion = new Variacion(oportunidad, oportunidadAnterior);
                             listaVariaciones.Add(variacion);
                             hojaAnterior.Value.Remove(oportunidadAnterior);
+                            hoja.Value.Remove(oportunidad);
                         }
                     }
                 }
             }
+
             return listaVariaciones;
         }
 
@@ -75,9 +78,10 @@ namespace Pipeline
         {
             foreach (var hoja in Hojas)
             {
-                var iguales = hoja.Value.Where(x => excelAnterior.Hojas[hoja.Key].Any(x.Iguales)).ToList();
+                var nterior = excelAnterior.Hojas[hoja.Key];
+                var iguales = hoja.Value.Where(x => nterior.Any(y => x.Iguales(y))).ToList();
                 hoja.Value.RemoveAll(x => iguales.Any(x.Iguales));
-                excelAnterior.Hojas[hoja.Key].RemoveAll(x => iguales.Any(x.Iguales));
+                nterior.RemoveAll(x => iguales.Any(x.Iguales));
             }
             
         }

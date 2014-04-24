@@ -20,7 +20,7 @@ namespace Pipeline
             ColumnaImporteUSD = 8;
             ColumnaMonto = 9;
             ColumnaPonderado = 10;
-            ColumnaFechaDeIngreso = 11;
+            ColumnaFechaDeIngreso = 13;
 
             Hoja = HojaYTGPonderado;
         }
