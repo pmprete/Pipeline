@@ -45,11 +45,11 @@ namespace Pipeline
             ColumnaMontoAnterior = 13;
             ColumnaPonderado = 14;
             ColumnaPonderadoAnterior = 15;
-            ColumnaValidacionYTD = 16;
-            ColumnaValidacionYtg100 = 17;
-            ColumnaValidacionYtgPonderado = 18;
-            ColumnaValidacionTc = 19;
-            ColumnaValidacionDiferencia = 20;
+            ColumnaValidacionYTD = 17;
+            ColumnaValidacionYtg100 = 18;
+            ColumnaValidacionYtgPonderado = 19;
+            ColumnaValidacionTc = 20;
+            ColumnaValidacionDiferencia = 21;
 
             Hoja = HojaVariacion;
         }

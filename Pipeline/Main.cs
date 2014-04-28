@@ -15,6 +15,7 @@ namespace Pipeline
         public Main()
         {
             InitializeComponent();
+            this.progressBar.Hide();
         }
 
         private void btnAbrirAnterior_Click(object sender, EventArgs e)
@@ -65,33 +66,40 @@ namespace Pipeline
                 return;
             }
 
-            _pathExcelNuevo = "";
-            var saveFileDialog = new SaveFileDialog();
-            saveFileDialog.Title = "Crear archivo Excel";
-            saveFileDialog.Filter = "Excel file|*.xlsx";
-            saveFileDialog.FileName = "Variacion";
-            var dialogResult = saveFileDialog.ShowDialog();
+            //_pathExcelNuevo = "";
+            //var saveFileDialog = new SaveFileDialog();
+            //saveFileDialog.Title = "Crear archivo Excel";
+            //saveFileDialog.Filter = "Excel file|*.xlsx";
+            //saveFileDialog.FileName = "Variacion";
+            //var dialogResult = saveFileDialog.ShowDialog();
 
-            if (dialogResult != DialogResult.OK)
-            {
-                return;
-            }
-            _pathExcelNuevo = saveFileDialog.FileName;
+            //if (dialogResult != DialogResult.OK)
+            //{
+            //    return;
+            //}
+            //_pathExcelNuevo = saveFileDialog.FileName;
 
-            if (_pathExcelNuevo == "") return;
+            //if (_pathExcelNuevo == "") return;
+
+            this.btnEjecutar.Hide();
+
+            this.progressBar.Maximum = 9;
+            this.progressBar.Minimum = 1;
+            this.progressBar.Show();
+            this.progressBar.Value = 1;
+
             try
             {
-                PipelineExcel.CrearVariacion(_pathExcelAnterior, _pathExcelActual, _pathExcelNuevo);
+                PipelineExcel.CrearVariacion(_pathExcelAnterior, _pathExcelActual, this.progressBar);
+                MessageBox.Show("Ejecucion exitosa");
             }
             catch(IOException ioExeption)
             {
                 MessageBox.Show("El archivo de excel se encuentra Actualmente abierto: " + ioExeption.Message);
-                return;
             }
-
-            MessageBox.Show("Ejecucion exitosa");
-
-
+            this.progressBar.Hide();
+            this.btnEjecutar.Show();
+            
         }
     }
 }

@@ -36,6 +36,7 @@
             this.txtExcelActual = new System.Windows.Forms.TextBox();
             this.btnAbrirActual = new System.Windows.Forms.Button();
             this.btnEjecutar = new System.Windows.Forms.Button();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             this.gpAnterior.SuspendLayout();
             this.gpActual.SuspendLayout();
             this.SuspendLayout();
@@ -98,7 +99,7 @@
             // 
             // btnEjecutar
             // 
-            this.btnEjecutar.Location = new System.Drawing.Point(174, 185);
+            this.btnEjecutar.Location = new System.Drawing.Point(165, 185);
             this.btnEjecutar.Name = "btnEjecutar";
             this.btnEjecutar.Size = new System.Drawing.Size(249, 41);
             this.btnEjecutar.TabIndex = 2;
@@ -106,11 +107,19 @@
             this.btnEjecutar.UseVisualStyleBackColor = true;
             this.btnEjecutar.Click += new System.EventHandler(this.btnEjecutar_Click);
             // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(24, 185);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(523, 23);
+            this.progressBar.TabIndex = 3;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(575, 238);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.btnEjecutar);
             this.Controls.Add(this.gpActual);
             this.Controls.Add(this.gpAnterior);
@@ -134,6 +143,7 @@
         private System.Windows.Forms.Button btnAbrirAnterior;
         private System.Windows.Forms.TextBox txtExcelActual;
         private System.Windows.Forms.Button btnAbrirActual;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }
 

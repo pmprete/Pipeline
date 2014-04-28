@@ -59,8 +59,8 @@ namespace Pipeline
         }
         public bool Iguales(Oportunidad otraOportunidad)
         {
-            return otraOportunidad.Codigo == Codigo && otraOportunidad.Hoja == Hoja && otraOportunidad.Fase == Fase && ImporteUSD == otraOportunidad.ImporteUSD 
-                && otraOportunidad.Probabilidad == Probabilidad && otraOportunidad.Monto == Monto && FechaDeIngreso == otraOportunidad.FechaDeIngreso;
+            return otraOportunidad.Codigo == Codigo && otraOportunidad.Hoja == Hoja && otraOportunidad.Fase == Fase && ImporteUSD == otraOportunidad.ImporteUSD
+                && otraOportunidad.Nombre == Nombre && otraOportunidad.Probabilidad == Probabilidad && otraOportunidad.Monto == Monto && FechaDeIngreso == otraOportunidad.FechaDeIngreso;
         }
     }
 }
