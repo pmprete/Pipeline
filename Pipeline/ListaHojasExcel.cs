@@ -9,12 +9,12 @@ namespace Pipeline
 {
     public class ListaHojasExcel
     {
-        public Dictionary<int, List<Oportunidad>> Hojas { get; set; }
+        public Dictionary<string, List<Oportunidad>> Hojas { get; set; }
         public ExcelPackage Excel;
 
         public ListaHojasExcel()
         {
-            Hojas = new Dictionary<int, List<Oportunidad>>
+            Hojas = new Dictionary<string, List<Oportunidad>>
                         {
                             {Oportunidad.HojaYTD, new List<Oportunidad>()},
                             {Oportunidad.HojaYTG100, new List<Oportunidad>()},
@@ -31,6 +31,7 @@ namespace Pipeline
             foreach (var hoja in Hojas)
             {
                 var indice = hoja.Key;
+                
                 var hojaActual = Excel.Workbook.Worksheets[indice];
                 var filaActual = 5;
                 while (!String.IsNullOrEmpty(hojaActual.GetValue<string>(filaActual, 2)))
@@ -71,7 +72,7 @@ namespace Pipeline
 
         }
 
-        public List<Variacion> DiferenciaAntesNoExistianEnElAnterior(ListaHojasExcel excelAnterior)
+        public List<Variacion> DiferenciaAntesNoExistianEnElAnterior()
         {
 
             var listaVariaciones = new List<Variacion>();
@@ -80,7 +81,10 @@ namespace Pipeline
                 foreach (var oportunidad in hoja.Value.ToList())
                 {
                     var oportunidadAnterior = Oportunidad.CrearOportunidad(Oportunidad.HojaPerdidas);
-
+                    oportunidadAnterior.Codigo = oportunidad.Codigo;
+                    oportunidadAnterior.Cuenta = oportunidad.Cuenta;
+                    oportunidadAnterior.Nombre = oportunidad.Nombre;
+                    oportunidadAnterior.FechaDeIngreso = oportunidad.FechaDeIngreso;
                     var variacion = new Variacion(oportunidad, oportunidadAnterior);
                     listaVariaciones.Add(variacion);
                     hoja.Value.Remove(oportunidad);

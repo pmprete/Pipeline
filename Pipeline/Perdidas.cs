@@ -19,6 +19,7 @@ namespace Pipeline
             ColumnaPonderado = 7;
             ColumnaFechaDeIngreso = 8;
 
+            
             Hoja = HojaPerdidas;
         }
 
@@ -30,8 +31,8 @@ namespace Pipeline
             Codigo = hoja.GetValue<int>(i, ColumnaCodigo);
             Responsable = hoja.GetValue<string>(i, ColumnaResponsable);
             Fase = hoja.GetValue<string>(i, ColumnaFase);
-            Ponderado = hoja.GetValue<double>(i, ColumnaPonderado);
-            FechaDeIngreso = hoja.GetValue<string>(i, ColumnaFechaDeIngreso);
+            Ponderado = Math.Round(hoja.GetValue<double>(i, ColumnaPonderado));
+            FechaDeIngreso = ConvertirExcelAFecha(hoja, i, ColumnaFechaDeIngreso);
             ImporteUSD = 0;
             Monto = 0;
             Probabilidad = 0;

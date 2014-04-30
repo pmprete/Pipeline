@@ -32,10 +32,10 @@ namespace Pipeline
             Responsable = hoja.GetValue<string>(i, ColumnaResponsable);
             Fase = hoja.GetValue<string>(i, ColumnaFase);
             Probabilidad = hoja.GetValue<double>(i, ColumnaProbabilidad);
-            ImporteUSD=hoja.GetValue<double>(i, ColumnaImporteUSD);
-            Ponderado = hoja.GetValue<double>(i, ColumnaPonderado);
-            FechaDeIngreso = hoja.GetValue<string>(i, ColumnaFechaDeIngreso);
-            Monto = Ponderado;
+            ImporteUSD = Math.Round(hoja.GetValue<double>(i, ColumnaImporteUSD));
+            Ponderado = Math.Round(hoja.GetValue<double>(i, ColumnaPonderado));
+            FechaDeIngreso = ConvertirExcelAFecha(hoja, i, ColumnaFechaDeIngreso);
+            Monto = Math.Round(Ponderado);
         }
     }
 }

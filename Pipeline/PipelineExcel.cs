@@ -12,14 +12,14 @@ namespace Pipeline
     {
         public static void CrearVariacion(string pathExcelAnterior, string pathExcelActual, ProgressBar progressBar)
         {
+            //Actual
+            var excelActual = new ListaHojasExcel(pathExcelActual);
+            progressBar.Value++;
 
             //Anterior
             var excelAnterior = new ListaHojasExcel(pathExcelAnterior);
             progressBar.Value ++;
 
-            //Actual
-            var excelActual = new ListaHojasExcel(pathExcelActual);
-            progressBar.Value++;
     
             var hojaVariaciones = excelActual.Excel.Workbook.Worksheets[Oportunidad.HojaVariacion];
             var filaVariacion = 5;
@@ -53,11 +53,13 @@ namespace Pipeline
             var listaVariacionesIguales = excelActual.DiferenciaEntreIguales(excelAnterior);
             progressBar.Value++;
 
-            var listaVariacionesNuevas = excelActual.DiferenciaAntesNoExistianEnElAnterior(excelAnterior);
-            progressBar.Value++;
-
             var listaVariacionesAnteriores = excelActual.DiferenciaAntesNoExistenEnElNuevo(excelAnterior);
             progressBar.Value++;
+
+            var listaVariacionesNuevas = excelActual.DiferenciaAntesNoExistianEnElAnterior();
+            progressBar.Value++;
+
+            
 
             
 

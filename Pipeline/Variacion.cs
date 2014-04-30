@@ -25,8 +25,8 @@ namespace Pipeline
         public double ImporteUSDAnterior { get; set; }
         public double MontoAnterior { get; set; }
         public double PonderadoAnterior { get; set; }
-        public int HojaActual { get; set; }
-        public int HojaAnterior { get; set; }
+        public string HojaActual { get; set; }
+        public string HojaAnterior { get; set; }
 
 
         public Variacion()

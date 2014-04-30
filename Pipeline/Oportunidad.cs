@@ -9,11 +9,11 @@ namespace Pipeline
     public abstract class Oportunidad
     {
 
-        public const int HojaVariacion = 2;
-        public const int HojaYTD = 3;
-        public const int HojaYTG100 = 4;
-        public const int HojaYTGPonderado = 5;
-        public const int HojaPerdidas = 6;
+        public const string HojaVariacion = "Variación";
+        public const string HojaYTD = "YTD";
+        public const string HojaYTG100 = "YTG 100%";
+        public const string HojaYTGPonderado = "YTG Ponderado";
+        public const string HojaPerdidas = "Opps perdidas";
 
         public int ColumnaCuenta;
         public int ColumnaOportunidad;
@@ -30,19 +30,19 @@ namespace Pipeline
         public double Monto { get; set; }
         public double ImporteUSD { get; set; }
 
-        public int Hoja { get; set; }
+        public string Hoja { get; set; }
         public string Cuenta { get; set; }
         public string Nombre { get; set; }
         public int Codigo { get; set; }
         public string Responsable { get; set; }
         public string Fase { get; set; }
         public double Ponderado { get; set; }
-        public string FechaDeIngreso { get; set; }
+        public DateTime FechaDeIngreso { get; set; }
 
 
         public abstract void CargarDatos(ExcelWorksheet hoja, int i);
 
-        public static Oportunidad CrearOportunidad(int hoja)
+        public static Oportunidad CrearOportunidad(string hoja)
         {
             switch (hoja)
             {
@@ -57,10 +57,23 @@ namespace Pipeline
             }
             return null;
         }
+
         public bool Iguales(Oportunidad otraOportunidad)
         {
-            return otraOportunidad.Codigo == Codigo && otraOportunidad.Hoja == Hoja && otraOportunidad.Fase == Fase && ImporteUSD == otraOportunidad.ImporteUSD
-                && otraOportunidad.Nombre == Nombre && otraOportunidad.Probabilidad == Probabilidad && otraOportunidad.Monto == Monto && FechaDeIngreso == otraOportunidad.FechaDeIngreso;
+            return otraOportunidad.Codigo == Codigo && otraOportunidad.Hoja == Hoja && otraOportunidad.Fase.Trim() == Fase.Trim() && ImporteUSD == otraOportunidad.ImporteUSD
+                && otraOportunidad.Nombre.Trim() == Nombre.Trim() && otraOportunidad.Probabilidad == Probabilidad && otraOportunidad.Monto == Monto 
+                && DateTime.Compare(FechaDeIngreso, otraOportunidad.FechaDeIngreso) == 0;
+        }
+
+        public DateTime ConvertirExcelAFecha(ExcelWorksheet hoja, int i, int columnaFechaDeIngreso)
+        {
+            hoja.Cells[i, columnaFechaDeIngreso].Style.Numberformat.Format = "#,##0";
+            var textoFecha = hoja.Cells[i, columnaFechaDeIngreso].Text;
+            textoFecha = String.IsNullOrEmpty(textoFecha) || textoFecha == "Ninguno" ? "0" : textoFecha;
+            var fechaNumero = Convert.ToDouble(textoFecha);
+            var fecha = DateTime.FromOADate(fechaNumero);
+            hoja.Cells[i, columnaFechaDeIngreso].Style.Numberformat.Format = "DD/MM/YYYY";
+            return fecha;
         }
     }
 }
