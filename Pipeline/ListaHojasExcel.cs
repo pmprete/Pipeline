@@ -33,12 +33,19 @@ namespace Pipeline
                 var indice = hoja.Key;
                 
                 var hojaActual = Excel.Workbook.Worksheets[indice];
-                var filaActual = 5;
+                var filaActual = 1;
+                while (String.IsNullOrEmpty(hojaActual.GetValue<string>(filaActual, 2)))
+                {
+                    filaActual++;
+                }
+                filaActual+=3;
                 while (!String.IsNullOrEmpty(hojaActual.GetValue<string>(filaActual, 2)))
                 {
 
                     var oportunidad = Oportunidad.CrearOportunidad(indice);
                     oportunidad.CargarDatos(hojaActual, filaActual);
+                    //if (oportunidad.Codigo == 13124) && otraOportunidad.Codigo == this.Codigo
+                    //    Console.WriteLine("this");
                     hoja.Value.Add(oportunidad);
                     filaActual++;
                 }
@@ -58,7 +65,7 @@ namespace Pipeline
                     var oportunidadNueva = Oportunidad.CrearOportunidad(Oportunidad.HojaPerdidas);
                     oportunidadNueva.Codigo = oportunidad.Codigo;
                     oportunidadNueva.Cuenta = oportunidad.Cuenta;
-                    oportunidadNueva.Nombre = oportunidad.Nombre;
+                    //oportunidadNueva.Nombre = oportunidad.Nombre;
                     oportunidadNueva.FechaDeIngreso = oportunidad.FechaDeIngreso;
                     var variacion = new Variacion(oportunidadNueva, oportunidad);
                     listaVariaciones.Add(variacion);

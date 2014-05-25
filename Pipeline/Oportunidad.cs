@@ -60,6 +60,8 @@ namespace Pipeline
 
         public bool Iguales(Oportunidad otraOportunidad)
         {
+            //if (this.Codigo == 13124) && otraOportunidad.Codigo == this.Codigo
+            //    Console.WriteLine("this");
             return otraOportunidad.Codigo == Codigo && otraOportunidad.Hoja == Hoja && otraOportunidad.Fase.Trim() == Fase.Trim() && ImporteUSD == otraOportunidad.ImporteUSD
                 && otraOportunidad.Nombre.Trim() == Nombre.Trim() && otraOportunidad.Probabilidad == Probabilidad && otraOportunidad.Monto == Monto 
                 && DateTime.Compare(FechaDeIngreso, otraOportunidad.FechaDeIngreso) == 0;
